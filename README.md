@@ -1,44 +1,39 @@
-# Final Project 
+# Data Visualization
 
-python -m venv venv 
+## Setting Up the Development Environment
 
-
-
+```bash
+python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
 
 python manage.py makemigrations
 python manage.py migrate
-*optional* python manage.py createsuperuser
+# optional
+python manage.py createsuperuser
 python manage.py runserver
 
-*optional- create custom query objects* python manage.py shell
+# optional - create custom query objects
+python manage.py shell
 
-WHEN DONE WITH VENV
+# When done with venv
 deactivate
 
 
-
-
-Docker for deployment
-```
-create image
+## Docker For Development
+# Create image
 docker build -t my-django-app .
 
-run image (create container)
+# Run image (create container)
 docker run -p 8000:8000 -e PORT=8000 my-django-app
 
 
-
-Depoly app to google cloud App Engine
+## Deployment Google Cloud App Engine
+# Tag the Docker image
 docker tag my-django-app gcr.io/gcp_project_id/my-django-app
+
+# Push the image to Google Container Registry
 docker push gcr.io/gcp_project_id/my-django-app
 
+# Deploy the app
 gcloud app deploy
-
-
-```
-
-main is production 
-
-master is dev
