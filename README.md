@@ -19,16 +19,18 @@ python manage.py shell
 # When done with venv
 deactivate
 
-
+```
 ## Docker For Development
+```bash
 # Create image
 docker build -t my-django-app .
 
 # Run image (create container)
 docker run -p 8000:8000 -e PORT=8000 my-django-app
 
-
+```
 ## Deployment Google Cloud App Engine
+```bash
 # Tag the Docker image
 docker tag my-django-app gcr.io/gcp_project_id/my-django-app
 
@@ -37,3 +39,4 @@ docker push gcr.io/gcp_project_id/my-django-app
 
 # Deploy the app
 gcloud app deploy
+```
