@@ -8,5 +8,4 @@ steps:
   args: ['app', 'deploy', app.yaml]
 timeout: '1600s'
 options:
-  logging: CLOUD_LOGGING_ONLY
-logsBucket: 'gs://your-logs-bucket'
+  default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
