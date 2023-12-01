@@ -1,0 +1,17 @@
+# config file for google app engine
+service: data-visualization
+
+runtime: custom             # Specifies that you are using a custom runtime environment.
+env: flex                   # Specifies the use of the App Engine Flexible environment.
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 5
+
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'commerce.settings'

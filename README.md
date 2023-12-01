@@ -17,5 +17,28 @@ python manage.py runserver
 WHEN DONE WITH VENV
 deactivate
 
+
+
+
+Docker for deployment
+```
+create image
+docker build -t my-django-app .
+
+run image (create container)
+docker run -p 8000:8000 -e PORT=8000 my-django-app
+
+
+
+Depoly app to google cloud App Engine
+docker tag my-django-app gcr.io/gcp_project_id/my-django-app
+docker push gcr.io/gcp_project_id/my-django-app
+
+gcloud app deploy
+
+
 ```
 
+main is production 
+
+master is dev

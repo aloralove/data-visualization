@@ -1,0 +1,9 @@
+# Cloud Build automates your build and deploy process. 
+# When you push changes to your repository, Cloud Build 
+# reads this file and executes the specified steps. 
+# Here, it deploys your application according to app.yaml.
+
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy', app.yaml]
+timeout: '1600s'
