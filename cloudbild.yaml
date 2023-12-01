@@ -9,3 +9,4 @@ steps:
 timeout: '1600s'
 options:
   logging: CLOUD_LOGGING_ONLY
+logsBucket: 'gs://your-logs-bucket'
