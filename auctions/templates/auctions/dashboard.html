@@ -1,0 +1,44 @@
+
+{% extends "auctions/layout.html" %}
+{% block main %}
+
+{% if message %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endif %}
+<main class="container my-4">
+    <h1 class="text-center">Weather Data Dashboard</h1>
+    <div class="row">
+        <!-- Chart Container 1 -->
+        <div class="col-md-6 my-2">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="weatherChart1"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Container 2 -->
+        <div class="col-md-6 my-2">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="weatherChart2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Additional Chart Containers as needed -->
+        <!-- ... -->
+    </div>
+</main>
+
+<footer class="footer bg-light">
+    <!-- Footer Content -->
+</footer>
+
+
+
+{%endblock%}
