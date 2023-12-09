@@ -29,13 +29,13 @@ docker build -t my-django-app .
 docker run -p 8000:8000 -e PORT=8000 my-django-app
 
 ```
-## Deployment Google Cloud App Engine
+## Deployment Google Cloud App Engine (Manually)
 ```bash
 # Tag the Docker image
-docker tag my-django-app gcr.io/gcp_project_id/my-django-app
+docker tag my-django-app gcr.io/sodium-airport-395522/my-django-app
 
 # Push the image to Google Container Registry
-docker push gcr.io/gcp_project_id/my-django-app
+docker push gcr.io/sodium-airport-395522/my-django-app
 
 # Deploy the app
 gcloud app deploy

@@ -8,3 +8,4 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user  # Pass the logged-in user to the template
         return context
+

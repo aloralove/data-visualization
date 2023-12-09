@@ -17,7 +17,8 @@ class CommentForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('profile_picture', 'bio')
+        fields = ('profile_picture', 'bio', 'age', 'city', 'state', 'country', 'interests')
+        
 
 class MyPasswordResetForm(PasswordResetForm):
    def is_valid(self):

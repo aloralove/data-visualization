@@ -39,6 +39,7 @@ ALLOWED_HOSTS = ['data-visualization-dot-sodium-airport-395522.wl.r.appspot.com'
 # Application definition
 
 INSTALLED_APPS = [
+    'storages',
     'auctions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -133,13 +134,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+# Google Cloud Storage settings for default file storage (user-uploaded files)
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+# Name of google cloud storage bucket to use
+GS_BUCKET_NAME = 'ebaylite_images_bucket'
+# Google Cloud Project ID
+GS_PROJECT_ID = 'sodium-airport-395522'
+
+# Google Cloud Application Credentials
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+
+
+# static files (javascript, css, images) from local machine
+# uploads to google cloud storage
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_DEFAULT_ACL = None
+STATIC_URL = 'https://storages.backends.gcloud.GoogleCloudStorage'
+
+# Media files 
+MEDIA_URL = 'https://storage.googleapis.com/{bucket_name}/'.format(bucket_name=GS_BUCKET_NAME)
+
 
 # Auto-created primary key used when not defining a primary key type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
