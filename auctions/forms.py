@@ -6,26 +6,23 @@
 # ----------------------------------------------------------------------------------------
 
 from django import forms
-from .models import AuctionListing, Category, Bid, Comment 
-
-class CategoryForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        fields = ('name',)
-
-class AuctionForm(forms.ModelForm):
-    category = forms.ModelChoiceField(queryset=Category.objects.all())
-    class Meta:
-        model = AuctionListing
-        fields = ('title', 'description', 'starting_bid', 'image_url', 'category')
-        
-class BidForm(forms.ModelForm):
-    class Meta:
-        model = Bid
-        fields = ('amount',)
-        
+from .models import Comment, UserProfile 
+from django.contrib.auth.forms import PasswordResetForm
+  
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('content',)
 
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('profile_picture', 'bio')
+
+class MyPasswordResetForm(PasswordResetForm):
+   def is_valid(self):
+       email = self.data["email"]
+       if sum([1 for u in self.get_users(email)]) == 0:
+           self.add_error(None, "Unknown email; try again")
+           return False
+       return super().is_valid()

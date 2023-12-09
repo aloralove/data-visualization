@@ -21,6 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 LOGIN_URL = '/login/'
 
+LOGIN_REDIRECT_URL = 'profile'  # Redirects to the 'profile' URL pattern after login
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -73,8 +75,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'auctions.context_processors.categories',
-                'auctions.context_processors.category_info',
+                # 'auctions.context_processors.categories',
+                # 'auctions.context_processors.category_info',
             ],
         },
     },

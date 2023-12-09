@@ -1,3 +1,4 @@
+from django import forms
 from django.urls import path
 from django.urls import reverse
 
@@ -6,27 +7,35 @@ from django.urls import path, include
 from django.conf import settings 
 from django.conf.urls.static import static 
 
-from . import views
+from . import views, forms
 
-app_name = "auctions"
+from .views.index_views import IndexView
+from .views.dashboard_views import DashboardView, UserProfileView, UserProfileUpdateView
+from .views.comment_views import CommentCreateView
+
+from django.contrib.auth import views as auth_views
+
+from .views.dashboard_views import user_profile_view
+
 urlpatterns = [
-    path('', views.index, name="index"),
-    path("login/", views.login_view, name="login"),
-    path("logout/", views.logout_view, name="logout"),
-    path("register/", views.register, name="register"),
-    path("new/", views.create_listing, name="create_listing"),
-    path("categories/", views.category, name="categories"),
-    path("category/<int:category_id>/", views.category_listings, name="category_listings"),
-    path("watchlist/", views.watchlist_view, name="watchlist_view"),
-    path("bid/<int:listing_id>", views.bid, name="bid"),
-    path("listing/<int:listing_id>", views.listing, name="listing"),
-    path('watchlist/<int:auction_id>/', views.watchlist, name='watchlist'),
-    path('remove_from_watchlist/<int:auction_id>/', views.remove_from_watchlist, name='remove_from_watchlist'),
-    path('get-comments/<int:listing_id>/', views.getComments, name='get_comments'),
-    path('get-bids/<int:listing_id>/', views.getBids, name='get_bids'),
-    path('comment/<int:listing_id>/', views.comment, name='comment'),
-    path("close_listing/<int:listing_id>/", views.close_listing, name="close_listing"),
 
+    path('', IndexView.as_view(), name='index'),
+    path('comment/', CommentCreateView.as_view(), name='add_comment'),
+    path('register/', views.register, name="register"),
+    path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
+    
+    path('profile/', user_profile_view, name='profile'),
+    # path('profile/edit/<int:pk>/', views.UserProfileUpdateView.as_view(), name='edit_profile'),
+    
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+
+    path('password_reset/', auth_views.PasswordResetView.as_view(form_class=forms.MyPasswordResetForm), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     
 ]
 

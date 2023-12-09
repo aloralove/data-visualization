@@ -1,52 +1,27 @@
 {% extends "auctions/layout.html" %}
 {% block main %}
-    <div class="container">
-        <h1>Profile</h1>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        <input type="hidden" id="csrfToken" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-
-        <div class="accordion" id="accordionListing">
-            {% for a in auctions %}
-                {% if a.active %}
-                    <div class="card">
-                        <div class="card-header" id="heading{{ a.id }}">
-                            <h4 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                                        data-target="#collapse{{ a.id }}" aria-expanded="true"
-                                        aria-controls="collapse{{ a.id }}" aria-label="{{ a.title }}">
-                                    {{ a.title }}
-                                </button>
-                            </h4>
-                        </div>
-                        <div id="collapse{{ a.id }}" class="collapse" aria-labelledby="heading{{ a.id }}"
-                             data-parent="#accordionListing">
-                            <div class="card-body">
-                                <a class="btn btn-success" href="{% url 'auctions:listing' a.id %}">Bid!</a>
-                                <p>Description: {{ a.description }}</p>
-                                <p>Starting Bid ${{ a.starting_bid }}</p>
-                                {% if a.image_url %}
-                                    <p><img src="{{ a.image_url }}" alt="{{ a.title }}" class="restricted-img"></p>
-                                {% endif %}
-                                <a href="{% url 'auctions:category_listings' a.category.id %}">
-                                    {{ a.category.name }}
-                                </a>
-                                {% if a.id in watchlist_ids %}
-                                    <i class="fa-solid fa-heart watchlist-icon" data-listing-id="{{ a.id }}"></i>
-                                {% else %}
-                                    <i class="fa-regular fa-heart watchlist-icon" data-listing-id="{{ a.id }}"></i>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
+<div class="container">
+    <h1>Welcome to Our Site!</h1>
+    <!-- Django messages framework -->
+    {% if messages %}
+        <ul class="messages list-unstyled">
+            {% for message in messages %}
+                <li{% if message.tags %} class="alert {{ message.tags }}"{% endif %}}>{{ message }}</li>
             {% endfor %}
-        </div>
-    </div>
+        </ul>
+    {% endif %}
+
+    <!-- Your content goes here -->
+    <p>This is the home page for our application. Start your journey here!</p>
+
+    <!-- CSRF Token hidden field for AJAX requests -->
+    <input type="hidden" id="csrfToken" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+    <!-- Other content and elements you want to include -->
+</div>
+
+
+
+
 {% endblock %}
+
