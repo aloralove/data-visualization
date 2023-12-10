@@ -63,6 +63,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+CSRF_TRUSTED_ORIGINS = ['https://*.sodium-airport-395522.wl.r.appspot.com']
+
 ROOT_URLCONF = 'commerce.urls'
 
 TEMPLATES = [
