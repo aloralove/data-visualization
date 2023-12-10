@@ -1,27 +1,44 @@
 {% extends "auctions/layout.html" %}
 {% block main %}
-<div class="container">
-    <h1>Welcome to Our Site!</h1>
-    <!-- Django messages framework -->
+<div class="container text-center">
+    <h1 class="my-4">Welcome to the ACEP Data Visualization Tool</h1>
+
     {% if messages %}
-        <ul class="messages list-unstyled">
+        <div class="messages">
             {% for message in messages %}
-                <li{% if message.tags %} class="alert {{ message.tags }}"{% endif %}}>{{ message }}</li>
+                <div class="alert {{ message.tags }}">{{ message }}</div>
             {% endfor %}
-        </ul>
+        </div>
     {% endif %}
 
-    <!-- Your content goes here -->
-    <p>This is the home page for our application. Start your journey here!</p>
+    <p class="lead mb-4">Explore and visualize data with ease. A one-stop solution for the ACEP Data Team's visualization needs.</p>
 
-    <!-- CSRF Token hidden field for AJAX requests -->
-    <input type="hidden" id="csrfToken" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <!-- ACEP Logo -->
+    <div class="mb-4">
+        <img src="https://storage.googleapis.com/ebaylite_images_bucket/auctions/images/ACEPBanner.png" alt="ACEP Logo" class="img-fluid" />
+    </div>
 
-    <!-- Other content and elements you want to include -->
+    <!-- Link to ACEP Site -->
+    <a href="https://www.uaf.edu/acep/" target="_blank" class="btn btn-primary mb-4">Visit ACEP Site</a>
+
+    <!-- Link to Dashboard -->
+    <a href="{% url 'dashboard' %}" class="btn btn-success mb-4">Go to Dashboard</a>
+
+    <!-- Data Visualization Image -->
+    <div class="mb-4">
+        <img src="https://storage.googleapis.com/ebaylite_images_bucket/auctions/images/lineGraphGif.gif" alt="Data GIF" class="img-fluid">
+
+    </div>
+
+    <!-- Air Quality PM 2.5 GIF -->
+    {% comment %} <div class="mb-4">
+        <img src="https://storage.googleapis.com/ebaylite_images_bucket/auctions/images/AirQualityAlaskaGif.gif" alt="Data GIF" class="img-fluid">
+
+    </div> {% endcomment %}
+
+    <!-- Fairbanks Image (optional) -->
+    <div class="mb-4">
+        <img src="https://storage.googleapis.com/ebaylite_images_bucket/auctions/images/AlaskaMap.jpg" alt="Fairbanks" class="img-fluid" />
+    </div>
 </div>
-
-
-
-
 {% endblock %}
-

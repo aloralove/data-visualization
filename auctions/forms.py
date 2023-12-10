@@ -15,9 +15,19 @@ class CommentForm(forms.ModelForm):
         fields = ('content',)
 
 class UserProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30, required=False)
+    last_name = forms.CharField(max_length=30, required=False)
+
     class Meta:
         model = UserProfile
-        fields = ('profile_picture', 'bio', 'age', 'city', 'state', 'country', 'interests')
+        fields = ['profile_picture', 'bio', 'age', 'city', 'state', 'country', 'interests', 'first_name', 'last_name']
+        
+    def save(self, *args, **kwargs):
+        user = super(UserProfileForm, self).save(*args, **kwargs)
+        user.user.first_name = self.cleaned_data['first_name']
+        user.user.last_name = self.cleaned_data['last_name']
+        user.user.save()
+        return user
         
 
 class MyPasswordResetForm(PasswordResetForm):
@@ -27,3 +37,4 @@ class MyPasswordResetForm(PasswordResetForm):
            self.add_error(None, "Unknown email; try again")
            return False
        return super().is_valid()
+   

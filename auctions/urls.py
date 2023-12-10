@@ -15,7 +15,7 @@ from .views.comment_views import CommentCreateView
 
 from django.contrib.auth import views as auth_views
 
-from .views.dashboard_views import user_profile_view
+from .views.dashboard_views import user_profile_view, edit_user_profile, upload_profile_picture
 
 urlpatterns = [
 
@@ -25,7 +25,9 @@ urlpatterns = [
     path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
     
     path('profile/', user_profile_view, name='profile'),
-    # path('profile/edit/<int:pk>/', views.UserProfileUpdateView.as_view(), name='edit_profile'),
+    path('profile/edit/', edit_user_profile, name='edit_profile'),
+    path('upload_picture/', upload_profile_picture, name='upload_profile_picture'),
+
     
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

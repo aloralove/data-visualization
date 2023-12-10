@@ -40,3 +40,6 @@ docker push gcr.io/sodium-airport-395522/my-django-app
 # Deploy the app
 gcloud app deploy
 ```
+when changing static files
+```bash
+python manage.py collectstatic

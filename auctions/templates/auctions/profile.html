@@ -1,83 +1,33 @@
 {% extends "auctions/layout.html" %}
 {% block main %}
 
-    <main>
-        <div class="container mt-4">
-            <div class="row">
-                <!-- Leftmost column -->
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <img src="https://storage.googleapis.com/ebaylite_images_bucket/auctions/images/avatar6.png" class="card-img-top" alt="Profile Picture">
-                        <div class="card-body">
-                            <!-- Dynamic user information -->
-                            <h5 class="card-title">{{ user.username }}</h5>
-                            <!-- Add additional user information here -->
-                            <p class="card-text">{{ user.email }}</p>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">My Stuff</h5>
-                            <a href="#" class="card-link">My Groups</a>
-                            <a href="#" class="card-link">My Events</a>
-                            <a href="#" class="card-link">My Photos</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Interests</h5>
-                            <span class="badge badge-primary">News</span>
-                            <span class="badge badge-secondary">W3Schools</span>
-                            <!-- Add more interests as badges -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Middle column -->
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">What is on your mind?</h5>
-                            <textarea class="form-control mb-2" rows="3"></textarea>
-                            <button class="btn btn-primary">Post</button>
-                        </div>
-                    </div>
-                    <!-- Repeat this card for each post -->
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">John Doe</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">1 min ago</h6>
-                            <p class="card-text">Lorem ipsum dolor sit amet...</p>
-                            <button class="btn btn-outline-primary">Like</button>
-                            <button class="btn btn-outline-secondary">Comment</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rightmost column -->
-                <div class="col-md-4">
-                    <!-- Repeat this card for each friend request -->
-                    <div class="card mb-3">
-                        <img src="https://storage.googleapis.com/ebaylite_images_bucket/auctions/images/avatar2.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Friend Request</h5>
-                            <p class="card-text">Fred Jones</p>
-                            <a href="#" class="btn btn-primary">Yes</a>
-                            <a href="#" class="btn btn-secondary">No</a>
-                        </div>
-                    </div>
-                    <!-- Placeholder for ads or additional content -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Ads</h5>
-                            <!-- Ad content goes here -->
-                        </div>
+<main>
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Profile column -->
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    {% if user.userprofile.profile_picture %}
+                        <img src="{{ user.userprofile.profile_picture.url }}" class="card-img-top" alt="Profile picture">
+                    {% else %}
+                        <!-- Display a default image if no profile picture is set -->
+                        {% comment %} <img src="{% static 'default-profile.png' %}" class="card-img-top" alt="Default profile picture"> {% endcomment %}
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.get_full_name }}</h5>
+                        <p class="card-text">{{ user.userprofile.bio }}</p>
+                        <p class="card-text">Age: {{ user.userprofile.age }}</p>
+                        <p class="card-text">Interests: {{ user.userprofile.interests|join:', ' }}</p>
+                        <!-- Edit button -->
+                        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
 
+            <!-- Middle and Rightmost columns can remain unchanged -->
+
+        </div>
+    </div>
+</main>
 
 {% endblock %}
-```
