@@ -31,3 +31,7 @@ sqlparse==0.4.4
 typing_extensions==4.8.0
 tzdata==2023.3
 urllib3==2.1.0
+psycopg2==2.9.9
+django-cors-headers==4.3.1
+google-cloud-secret-manager==2.17.0
+supabase==2.2.1

@@ -28,10 +28,10 @@ LOGIN_REDIRECT_URL = 'profile'  # Redirects to the 'profile' URL pattern after l
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6ps8j!crjgrxt34cqbqn7x&b3y%(fny8k8nh21+qa)%ws3fh!q'
+SECRET_KEY = os.environ.get("SECERT_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG') == 'True'
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 
 ALLOWED_HOSTS = ['data-visualization-dot-sodium-airport-395522.wl.r.appspot.com', 'localhost', '127.0.0.1']
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'crispy_forms',
     'crispy_bootstrap4',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -61,10 +62,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 
-CSRF_TRUSTED_ORIGINS = ['https://*.sodium-airport-395522.wl.r.appspot.com']
+CSRF_TRUSTED_ORIGINS = ['https://data-visualization-dot-sodium-airport-395522.wl.r.appspot.com', 'http://127.0.0.1:8000']
 
 ROOT_URLCONF = 'commerce.urls'
 
@@ -94,8 +96,12 @@ WSGI_APPLICATION = 'commerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': os.getenv('SUPABASE_PW'),
+        'HOST': 'db.antowpgqpbqtojkbdbzx.supabase.co',
+        'PORT': '5432',
     }
 }
 
@@ -144,8 +150,30 @@ GS_BUCKET_NAME = 'ebaylite_images_bucket'
 # Google Cloud Project ID
 GS_PROJECT_ID = 'sodium-airport-395522'
 
-# Google Cloud Application Credentials
-GOOGLE_APPLICATION_CREDENTIALS = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+
+
+## get service account key from google cloud secret manager and not locally
+# from google.cloud import secretmanager
+
+# def access_secret_version(secret_id, version_id="latest"):
+#     """
+#     Accesses the payload of the given secret version if it's enabled.
+#     """
+#     project_id = "900097547124"
+#     # Create the Secret Manager client.
+#     client = secretmanager.SecretManagerServiceClient()
+#     # Build the resource name of the secret version.
+#     name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
+#     # Access the secret version.
+#     response = client.access_secret_version(request={"name": name})
+#     payload = response.payload.data.decode("UTF-8")
+#     return payload
+
+
+# GOOGLE_APPLICATION_CREDENTIALS_JSON = access_secret_version("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+
+
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON")
 
 
 # static files (javascript, css, images) from local machine

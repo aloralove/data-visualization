@@ -37,7 +37,7 @@ docker tag my-django-app gcr.io/sodium-airport-395522/my-django-app
 # Push the image to Google Container Registry
 docker push gcr.io/sodium-airport-395522/my-django-app
 
-# Deploy the app
+# Deploy the app to App Engine using the Docker image from the Container Registry. It updates your App Engine application with the latest image.
 gcloud app deploy
 ```
 when changing static files

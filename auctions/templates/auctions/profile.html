@@ -7,7 +7,7 @@
             <!-- Profile column -->
             <div class="col-md-4">
                 <div class="card mb-3">
-                    {% if user.userprofile.profile_picture %}
+                    {% if user.userprofile.profile_picture  %}
                         <img src="{{ user.userprofile.profile_picture.url }}" class="card-img-top" alt="Profile picture">
                     {% else %}
                         <!-- Display a default image if no profile picture is set -->
@@ -17,8 +17,11 @@
                         <h5 class="card-title">{{ user.get_full_name }}</h5>
                         <p class="card-text">{{ user.userprofile.bio }}</p>
                         <p class="card-text">Age: {{ user.userprofile.age }}</p>
-                        <p class="card-text">Interests: {{ user.userprofile.interests|join:', ' }}</p>
-                        <!-- Edit button -->
+                        <p class="card-text">Interests: {{ user.userprofile.interests }}</p>
+                        <p class="card-text">Location: {{ user.userprofile.location }}</p>
+
+
+  
                         <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
                     </div>
                 </div>
