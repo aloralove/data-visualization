@@ -13,7 +13,7 @@ from . import views, forms
 
 from .views.index_views import IndexView
 from .views.dashboard_views import DashboardView, UserProfileView, UserProfileUpdateView
-from .views.comment_views import CommentCreateView
+from .views.comment_views import CommentCreateView, CommentDeleteView, CommentUpdateView
 
 from django.contrib.auth import views as auth_views
 
@@ -27,10 +27,14 @@ urlpatterns = [
     path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
     path('contact/', contact_us, name='contact'),
     path('contact/success/', contact_success, name='contact_success'),
-    
+
     path('profile/', user_profile_view, name='profile'),
     path('profile/edit/', edit_user_profile, name='edit_profile'),
     path('upload_picture/', upload_profile_picture, name='upload_profile_picture'),
+
+    path('comment/add/', CommentCreateView.as_view(), name='add_comment'),
+    path('comment/edit/<int:pk>/', CommentUpdateView.as_view(), name='comment_edit'),
+    path('comment/delete/<int:pk>/', CommentDeleteView.as_view(), name='comment_delete'),
 
     
     path('login/', auth_views.LoginView.as_view(), name='login'),

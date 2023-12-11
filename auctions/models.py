@@ -21,7 +21,7 @@ class User(AbstractUser):
     pass
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     profile_picture = models.ImageField(upload_to='profile_pictures/%Y/%m/%d/', blank=True, null=True)
     bio = models.TextField(blank=True)
     age = models.IntegerField(blank=True, null=True)
@@ -44,7 +44,7 @@ class UserCityPreference(models.Model):
 
 class DashboardPreferences(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dashboard_preferences')
-    preference = models.CharField(max_length=255)  # This could be a choice field or linked to another model defining the data types available
+    preference = models.CharField(max_length=255)  
 
     def __str__(self):
         return f"{self.user.username}'s dashboard preferences"
@@ -53,6 +53,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dashboard_comments')
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
+    chart_id = models.CharField(max_length=100, default='default_chart_id') 
 
     def __str__(self):
         return f"Comment by {self.user.username} on {self.timestamp}"

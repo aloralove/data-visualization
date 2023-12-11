@@ -7,28 +7,61 @@
             <!-- Profile column -->
             <div class="col-md-4">
                 <div class="card mb-3">
-                    {% if user.userprofile.profile_picture  %}
-                        <img src="{{ user.userprofile.profile_picture.url }}" class="card-img-top" alt="Profile picture">
+                    {% if profile_pic %}
+                        <img src="{{ profile_pic.url }}" class="card-img-top" alt="Profile picture">
                     {% else %}
-                        <!-- Display a default image if no profile picture is set -->
-                        {% comment %} <img src="{% static 'default-profile.png' %}" class="card-img-top" alt="Default profile picture"> {% endcomment %}
+    
                     {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title">{{ user.get_full_name }}</h5>
-                        <p class="card-text">{{ user.userprofile.bio }}</p>
-                        <p class="card-text">Age: {{ user.userprofile.age }}</p>
-                        <p class="card-text">Interests: {{ user.userprofile.interests }}</p>
-                        <p class="card-text">Location: {{ user.userprofile.location }}</p>
+                        <h3 class="card-title">{{ user.username}}</h3>
+                        <p class="card-text">{{ bio }}</p>
+                        <p class="card-text">Age: {{ age }}</p>
+                        <p class="card-text">Interests: {{ interests }}</p>
+                        <p class="card-text">Location: {{ city }}, {{ state }}</p>
 
-
-  
-                        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
-                        <a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a>
+                        <a href="{% url 'edit_profile' %}" class="btn btn-warning btn-sm" >Edit Profile</a>
+                        <a href="{% url 'password_change' %}" class="btn btn-secondary btn-sm">Change Password</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Middle and Rightmost columns can remain unchanged -->
+            <!-- Comments Section -->
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5>{{ user.username }} Comments</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for comment in user_comments %}
+                            <div class="card mb-2">
+                                <div class="card-header">
+                                    <strong>{{ comment.user.username }}</strong> on <em>{{ comment.chart_id }} Chart</em>
+                                    <br>
+                                    <small class="text-muted">{{ comment.timestamp }}</small>
+                                </div>
+                                <div class="card-body">
+                                    <p>{{ comment.content }}</p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <strong>{{ comment.user.username }}:</strong> {{ comment.content }}
+                                {% if comment.user == request.user %}
+                                    <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        {% empty %}
+                            <p>No comments yet.</p>
+                            
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
 
         </div>
     </div>

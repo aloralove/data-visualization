@@ -16,8 +16,46 @@
                 <div class="card-body">
                     <canvas id="barChart"></canvas>
                 </div>
+             <!-- Comments Section -->
+            <div class="card-body">
+                <h5>Comments</h5>
+                {% for comment in bar_chart_comments %}
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <strong>{{ comment.user.username }}</strong>
+                        <br>
+                        <small class="text-muted"> {{ comment.timestamp }}</small>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ comment.content }}</p>
+                        {% if comment.user == request.user %}
+                            <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+            </div>
+            <!-- Comment Form -->
+            <div class="card-body">
+                <form method="post" action="{% url 'add_comment' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="chart_id" value="barChart">
+                    <div class="form-group">
+                        <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+                </form>
+            </div>
             </div>
         </div>
+
 
         <!-- Line Graph -->
         <div class="col-md-6 my-2">
@@ -25,9 +63,47 @@
                 <div class="card-body">
                     <canvas id="lineGraph"></canvas>
                 </div>
+                <!-- Comments Section -->
+    <div class="card-body">
+        <h5>Comments</h5>
+        {% for comment in line_graph_comments %}
+        <div class="card mb-2">
+            <div class="card-header">
+                <strong>{{ comment.user.username }}</strong>
+                <br>
+                <small class="text-muted"> {{ comment.timestamp }}</small>
+            </div>
+            <div class="card-body">
+                <p>{{ comment.content }}</p>
+                {% if comment.user == request.user %}
+                    <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
     </div>
+    <!-- Comment Form -->
+    <div class="card-body">
+        <form method="post" action="{% url 'add_comment' %}">
+            {% csrf_token %}
+            <input type="hidden" name="chart_id" value="lineGraph">
+            <div class="form-group">
+                <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+        </form>
+    </div>
+                </div>
+        </div>
+    </div>
+
 
     <div class="row">
         <!-- Chart Container for Pie Chart -->
@@ -36,6 +112,43 @@
                 <div class="card-body">
                     <canvas id="pieChart"></canvas>
                 </div>
+        <!-- Comments Section -->
+        <div class="card-body">
+            <h5>Comments</h5>
+            {% for comment in pie_chart_comments %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    <strong>{{ comment.user.username }}</strong>
+                    <br>
+                    <small class="text-muted"> {{ comment.timestamp }}</small>
+                </div>
+                <div class="card-body">
+                    <p>{{ comment.content }}</p>
+                    {% if comment.user == request.user %}
+                        <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+        <!-- Comment Form -->
+        <div class="card-body">
+            <form method="post" action="{% url 'add_comment' %}">
+                {% csrf_token %}
+                <input type="hidden" name="chart_id" value="pieChart">
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+            </form>
+        </div>
             </div>
         </div>
 
@@ -46,6 +159,43 @@
                     <canvas id="radarChart"></canvas>
                 </div>
             </div>
+                    <!-- Comments Section -->
+        <div class="card-body">
+            <h5>Comments</h5>
+            {% for comment in radar_chart_comments %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    <strong>{{ comment.user.username }}</strong>
+                    <br>
+                    <small class="text-muted"> {{ comment.timestamp }}</small>
+                </div>
+                <div class="card-body">
+                    <p>{{ comment.content }}</p>
+                    {% if comment.user == request.user %}
+                        <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+        <!-- Comment Form -->
+        <div class="card-body">
+            <form method="post" action="{% url 'add_comment' %}">
+                {% csrf_token %}
+                <input type="hidden" name="chart_id" value="radarChart">
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+            </form>
+        </div>
         </div>
     </div>
 
@@ -56,6 +206,43 @@
                 <div class="card-body">
                     <canvas id="polarChart"></canvas>
                 </div>
+                        <!-- Comments Section -->
+        <div class="card-body">
+            <h5>Comments</h5>
+            {% for comment in polar_chart_comments %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    <strong>{{ comment.user.username }}</strong>
+                    <br>
+                    <small class="text-muted"> {{ comment.timestamp }}</small>
+                </div>
+                <div class="card-body">
+                    <p>{{ comment.content }}</p>
+                    {% if comment.user == request.user %}
+                        <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+        <!-- Comment Form -->
+        <div class="card-body">
+            <form method="post" action="{% url 'add_comment' %}">
+                {% csrf_token %}
+                <input type="hidden" name="chart_id" value="polarChart">
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+            </form>
+        </div>
             </div>
         </div>
 
@@ -67,6 +254,43 @@
                 </div>
             
             </div>
+                    <!-- Comments Section -->
+        <div class="card-body">
+            <h5>Comments</h5>
+            {% for comment in doughnut_chart_comments %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    <strong>{{ comment.user.username }}</strong>
+                    <br>
+                    <small class="text-muted"> {{ comment.timestamp }}</small>
+                </div>
+                <div class="card-body">
+                    <p>{{ comment.content }}</p>
+                    {% if comment.user == request.user %}
+                        <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+        <!-- Comment Form -->
+        <div class="card-body">
+            <form method="post" action="{% url 'add_comment' %}">
+                {% csrf_token %}
+                <input type="hidden" name="chart_id" value="doughnutChart">
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+            </form>
+        </div>
         </div>
     </div>
 
@@ -80,6 +304,43 @@
                 <div class="card-body">
                     <canvas id="bubbleChart"></canvas>
                 </div>
+                        <!-- Comments Section -->
+        <div class="card-body">
+            <h5>Comments</h5>
+            {% for comment in bubble_chart_comments %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    <strong>{{ comment.user.username }}</strong>
+                    <br>
+                    <small class="text-muted"> {{ comment.timestamp }}</small>
+                </div>
+                <div class="card-body">
+                    <p>{{ comment.content }}</p>
+                    {% if comment.user == request.user %}
+                        <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+        <!-- Comment Form -->
+        <div class="card-body">
+            <form method="post" action="{% url 'add_comment' %}">
+                {% csrf_token %}
+                <input type="hidden" name="chart_id" value="bubbleChart">
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+            </form>
+        </div>
             </div>
         </div>
         <!-- Scatter Chart Container -->
@@ -88,6 +349,43 @@
                 <div class="card-body">
                     <canvas id="scatterChart"></canvas>
                 </div>
+                        <!-- Comments Section -->
+        <div class="card-body">
+            <h5>Comments</h5>
+            {% for comment in scatter_chart_comments %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    <strong>{{ comment.user.username }}</strong>
+                    <br>
+                    <small class="text-muted"> {{ comment.timestamp }}</small>
+                </div>
+                <div class="card-body">
+                    <p>{{ comment.content }}</p>
+                    {% if comment.user == request.user %}
+                        <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+        <!-- Comment Form -->
+        <div class="card-body">
+            <form method="post" action="{% url 'add_comment' %}">
+                {% csrf_token %}
+                <input type="hidden" name="chart_id" value="scatterChart">
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+            </form>
+        </div>
             </div>
         </div>
 
@@ -102,6 +400,43 @@
                 <div class="card-body">
                     <canvas id="areaChart"></canvas>
                 </div>
+                        <!-- Comments Section -->
+        <div class="card-body">
+            <h5>Comments</h5>
+            {% for comment in area_chart_comments %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    <strong>{{ comment.user.username }}</strong>
+                    <br>
+                    <small class="text-muted"> {{ comment.timestamp }}</small>
+                </div>
+                <div class="card-body">
+                    <p>{{ comment.content }}</p>
+                    {% if comment.user == request.user %}
+                        <a href="{% url 'comment_edit' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'comment_delete' comment.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+        <!-- Comment Form -->
+        <div class="card-body">
+            <form method="post" action="{% url 'add_comment' %}">
+                {% csrf_token %}
+                <input type="hidden" name="chart_id" value="areaChart">
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="3" placeholder="Leave a comment..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Post Comment</button>
+            </form>
+        </div>
             </div>
         </div>
     </div>

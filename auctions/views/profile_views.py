@@ -1,17 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
-
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-
-from auctions.forms import UserProfileForm
+from auctions.models import UserProfile, Comment
 
 class UserProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user  # Pass the logged-in user to the template
+        user_profile = UserProfile.objects.get(user=self.request.user)
+        user_comments = Comment.objects.filter(user=self.request.user)
+        chart_id = Comment.objects.get(user=self.request.user).chart_id
+        timestamp = Comment.objects.get(user=self.request.user).timestamp
+        context['user_profile'] = user_profile
+        context['user_comments'] = user_comments
+        context['chart_id'] = chart_id
+        context['timestamp'] = timestamp
         return context
-
-

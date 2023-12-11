@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, UpdateView, TemplateView, CreateView
 
@@ -16,26 +17,34 @@ class CommentView(ListView):
     
 class CommentCreateView(CreateView):
     model = Comment
-    fields = ['comment']
+    fields = ['content']
     template_name = 'auctions/comment.html'
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.chart_id = self.request.POST.get('chart_id') 
         return super().form_valid(form)
     
 class CommentUpdateView(UpdateView):
     model = Comment
-    fields = ['comment']
-    template_name = 'auctions/comment.html'
+    fields = ['content']
+    template_name = 'auctions/comment_edit.html'
     success_url = reverse_lazy('dashboard')
     
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.user
     
     
 class CommentDeleteView(DeleteView):
     model = Comment
     template_name = 'auctions/comment_delete.html'
     success_url = reverse_lazy('dashboard')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user != request.user:
+            return HttpResponseForbidden()
+        self.object.delete()
+        return HttpResponseRedirect(self.success_url)
