@@ -31,7 +31,9 @@ LOGIN_REDIRECT_URL = 'profile'  # Redirects to the 'profile' URL pattern after l
 SECRET_KEY = os.environ.get("SECERT_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+# DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['data-visualization-dot-sodium-airport-395522.wl.r.appspot.com', 'localhost', '127.0.0.1']
@@ -194,3 +196,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+AUTH_PASSWORD_VALIDATORS = []
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'alora.greer@gmail.com'
+EMAIL_HOST_PASSWORD = os.getenv('GMAIL_PASSWORD')

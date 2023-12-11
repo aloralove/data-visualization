@@ -5,7 +5,9 @@ from django.urls import reverse
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings 
-from django.conf.urls.static import static 
+from django.conf.urls.static import static
+
+from auctions.views.contact_us import contact_us, contact_success 
 
 from . import views, forms
 
@@ -23,6 +25,8 @@ urlpatterns = [
     path('comment/', CommentCreateView.as_view(), name='add_comment'),
     path('register/', views.register, name="register"),
     path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
+    path('contact/', contact_us, name='contact'),
+    path('contact/success/', contact_success, name='contact_success'),
     
     path('profile/', user_profile_view, name='profile'),
     path('profile/edit/', edit_user_profile, name='edit_profile'),
@@ -38,6 +42,9 @@ urlpatterns = [
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    
+    
+
     
 ]
 
