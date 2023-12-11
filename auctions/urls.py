@@ -7,7 +7,8 @@ from django.urls import path, include
 from django.conf import settings 
 from django.conf.urls.static import static
 
-from auctions.views.contact_us import contact_us, contact_success 
+from auctions.views.contact_us import contact_us, contact_success
+from auctions.views.search_views import search_results 
 
 from . import views, forms
 
@@ -35,7 +36,8 @@ urlpatterns = [
     path('comment/add/', CommentCreateView.as_view(), name='add_comment'),
     path('comment/edit/<int:pk>/', CommentUpdateView.as_view(), name='comment_edit'),
     path('comment/delete/<int:pk>/', CommentDeleteView.as_view(), name='comment_delete'),
-
+    
+    path('search/', search_results, name='search_results'),
     
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
